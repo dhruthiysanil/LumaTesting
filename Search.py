@@ -47,13 +47,12 @@ def search_and_add_shirt(driver, wait):
     # Wait for "Add to Cart" span to be clickable
     add_to_cart_btn = wait.until(EC.element_to_be_clickable((By.XPATH, config1.ADD_TO_CART_XPATH)))
     driver.execute_script("arguments[0].click();", add_to_cart_btn)
-
     print(" Product added to cart.")
 
 
-
+#Proceed to checkout
 def proceed_to_checkout(driver, wait):
-    print("🛒 Clicking cart icon to view minicart...")
+    print("Clicking cart icon to view minicart...")
 
     # Click on <a class='action showcart'> to open the minicart
     cart_icon = wait.until(EC.element_to_be_clickable((By.XPATH, config1.CART_ICON_XPATH)))

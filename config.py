@@ -1,12 +1,12 @@
 from selenium.webdriver.common.by import By
-
+#Config file of WomenSection.py
 # URLs
 HOME_URL = "https://magento.softwaretestingboard.com/"
 LOGIN_URL = "https://magento.softwaretestingboard.com/customer/account/login/"
 SUCCESS_PAGE_URL = "https://magento.softwaretestingboard.com/checkout/onepage/success/"
 
 # Credentials
-EMAIL = "dhru@gmail.com"
+EMAIL = "code100@gmail.com"
 PASSWORD = "DhruthiSanil@15"
 
 # Login

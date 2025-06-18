@@ -1,22 +1,24 @@
-# Magento Luma Testing
+# LumaTesting
+# MagnetoTesting
 
-Automated test scripts using Selenium for:
-- Logging in
-- Searching products
-- Adding items to cart
-- Filling shipping details
-- Placing orders
+Automated Selenium test scripts for Magento E-commerce website.
 
-## Scripts Included
-- `App.py`: Main execution file
-- `Search.py`: Search and add-to-cart logic
-- `Womensection.py`: Women's section test
-- `config.py`: Common selectors and URLs
-- `config1.py`: Radiant Tee and checkout test
+## Description
 
-## Setup Instructions
+This project contains test automation scripts written in Python using Selenium WebDriver. The tests simulate user actions such as:
 
-### 1. Clone the repo
-```bash
-git clone https://github.com/dhruthiysanil/magentoLumaTesting.git
-cd magentoLumaTesting
+- Registration
+- Login
+- Product browsing
+- Add to cart
+- Checkout process
+- Dropdown interactions
+
+## Technologies Used
+
+- Python 3.13
+- Selenium
+- Chrome WebDriver
+- Git
+
+

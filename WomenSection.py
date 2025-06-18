@@ -78,7 +78,7 @@ def fill_shipping_details(driver, wait):
 
 # Place the order and verify the confirmation page
 def place_order(driver, wait):
-    print("💳 Placing order...")
+    print("Placing order...")
     wait.until(EC.url_contains("checkout/#payment"))
     wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, "img[alt='Loading...']")))
 

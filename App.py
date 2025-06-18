@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import config
 
-EMAIL = "dhr@gmail.com"
+EMAIL = "code200@gmail.com"
 PASSWORD = "DhruthiSanil@15"
 
 def start_driver():
@@ -28,9 +28,9 @@ def register_account(driver):
 
     try:
         error = driver.find_element(By.CLASS_NAME, "message-error")
-        print("❌ Registration failed: Email already exists.")
+        print("Registration failed: Email already exists.")
     except:
-        print("✅ Account created successfully.")
+        print("Account created successfully.")
 
 def run_registration():
     driver = start_driver()
@@ -38,7 +38,7 @@ def run_registration():
         open_site(driver)
         register_account(driver)
     except Exception as e:
-        print(f"❌ Error during registration: {e}")
+        print(f"Error during registration: {e}")
     finally:
         driver.quit()
 

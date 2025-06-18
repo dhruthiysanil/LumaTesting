@@ -1,12 +1,12 @@
 from selenium.webdriver.common.by import By
-
+#Config File of Search.py
 # URLs
 HOME_URL = "https://magento.softwaretestingboard.com/"
 LOGIN_URL = "https://magento.softwaretestingboard.com/customer/account/login/"
 SUCCESS_PAGE_URL = "https://magento.softwaretestingboard.com/checkout/onepage/success/"
 
 # Credentials
-EMAIL = "dhr@gmail.com"
+EMAIL = "code200@gmail.com"
 PASSWORD = "DhruthiSanil@15"
 
 # Login
