@@ -37,7 +37,7 @@ def login(driver, wait):
 
 # Search for a shirt and add it to cart
 def search_and_add_shirt(driver, wait):
-    print("🔍 Searching for shirt...")
+    print("Searching for shirt...")
     search_box = wait.until(EC.presence_of_element_located((By.ID, config.SEARCH_INPUT_ID)))
     search_box.clear()
     search_box.send_keys("shirt")
