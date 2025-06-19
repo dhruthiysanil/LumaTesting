@@ -1,5 +1,11 @@
+
 from selenium.webdriver.common.by import By
 #Config File of Search.py
+
+#Config File of Search.py
+
+from selenium.webdriver.common.by import By
+
 # URLs
 HOME_URL = "https://magento.softwaretestingboard.com/"
 LOGIN_URL = "https://magento.softwaretestingboard.com/customer/account/login/"
