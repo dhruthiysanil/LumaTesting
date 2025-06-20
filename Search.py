@@ -132,7 +132,6 @@ def place_order(driver, wait):
 def main():
     """Run the complete purchase flow."""
     options = webdriver.ChromeOptions()
-    options.add_argument("--log-level=3")
     driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.implicitly_wait(10)
