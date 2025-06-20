@@ -1,19 +1,15 @@
-
-from selenium.webdriver.common.by import By
 #Config File of Search.py
-
-#Config File of Search.py
-
 from selenium.webdriver.common.by import By
+import os
 
 # URLs
 HOME_URL = "https://magento.softwaretestingboard.com/"
 LOGIN_URL = "https://magento.softwaretestingboard.com/customer/account/login/"
 SUCCESS_PAGE_URL = "https://magento.softwaretestingboard.com/checkout/onepage/success/"
 
-# Credentials
-EMAIL = "code200@gmail.com"
-PASSWORD = "DhruthiSanil@15"
+# Credentials from environment variables
+EMAIL = os.getenv("EMAIL")
+PASSWORD = os.getenv("PASSWORD")
 
 # Login
 SIGN_IN_EMAIL_INPUT = "email"

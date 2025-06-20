@@ -10,7 +10,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import config
+import WomenConfig
 
 EMAIL = "code5500@gmail.com"
 PASSWORD = "DhruthiSanil@15"
@@ -26,7 +26,7 @@ def start_driver():
 # Open the homepage of the website
 def open_site(driver):
     """Navigates to the home URL defined in the config file."""
-    driver.get(config.HOME_URL)
+    driver.get(WomenConfig.HOME_URL)
 
 # Fill and submit the registration form
 def register_account(driver):
@@ -34,13 +34,13 @@ def register_account(driver):
     Automates account registration by filling out the form fields and clicking the register button.
     Prints whether the account was created or already exists.
     """
-    driver.find_element(By.XPATH, config.CREATE_ACCOUNT_LINK).click()
-    driver.find_element(By.ID, config.FIRST_NAME_INPUT).send_keys("Dhruthi")
-    driver.find_element(By.ID, config.LAST_NAME_INPUT).send_keys("Sanil")
-    driver.find_element(By.ID, config.EMAIL_INPUT).send_keys(EMAIL)
-    driver.find_element(By.ID, config.PASSWORD_INPUT).send_keys(PASSWORD)
-    driver.find_element(By.ID, config.CONFIRM_PASSWORD_INPUT).send_keys(PASSWORD)
-    driver.find_element(By.XPATH, config.CREATE_ACCOUNT_BUTTON).click()
+    driver.find_element(By.XPATH, WomenConfig.CREATE_ACCOUNT_LINK).click()
+    driver.find_element(By.ID, WomenConfig.FIRST_NAME_INPUT).send_keys("Dhruthi")
+    driver.find_element(By.ID, WomenConfig.LAST_NAME_INPUT).send_keys("Sanil")
+    driver.find_element(By.ID, WomenConfig.EMAIL_INPUT).send_keys(EMAIL)
+    driver.find_element(By.ID, WomenConfig.PASSWORD_INPUT).send_keys(PASSWORD)
+    driver.find_element(By.ID, WomenConfig.CONFIRM_PASSWORD_INPUT).send_keys(PASSWORD)
+    driver.find_element(By.XPATH, WomenConfig.CREATE_ACCOUNT_BUTTON).click()
 
     try:
         error = driver.find_element(By.CLASS_NAME, "message-error")
@@ -75,16 +75,16 @@ def start_driver():
     return driver
 
 def open_site(driver):
-    driver.get(config.HOME_URL)
+    driver.get(WomenConfig.HOME_URL)
 
 def register_account(driver):
-    driver.find_element(By.XPATH, config.CREATE_ACCOUNT_LINK).click()
-    driver.find_element(By.ID, config.FIRST_NAME_INPUT).send_keys("Dhruthi")
-    driver.find_element(By.ID, config.LAST_NAME_INPUT).send_keys("Sanil")
-    driver.find_element(By.ID, config.EMAIL_INPUT).send_keys(EMAIL)
-    driver.find_element(By.ID, config.PASSWORD_INPUT).send_keys(PASSWORD)
-    driver.find_element(By.ID, config.CONFIRM_PASSWORD_INPUT).send_keys(PASSWORD)
-    driver.find_element(By.XPATH, config.CREATE_ACCOUNT_BUTTON).click()
+    driver.find_element(By.XPATH, WomenConfig.CREATE_ACCOUNT_LINK).click()
+    driver.find_element(By.ID, WomenConfig.FIRST_NAME_INPUT).send_keys("Dhruthi")
+    driver.find_element(By.ID, WomenConfig.LAST_NAME_INPUT).send_keys("Sanil")
+    driver.find_element(By.ID, WomenConfig.EMAIL_INPUT).send_keys(EMAIL)
+    driver.find_element(By.ID, WomenConfig.PASSWORD_INPUT).send_keys(PASSWORD)
+    driver.find_element(By.ID, WomenConfig.CONFIRM_PASSWORD_INPUT).send_keys(PASSWORD)
+    driver.find_element(By.XPATH, WomenConfig.CREATE_ACCOUNT_BUTTON).click()
 
     try:
         error = driver.find_element(By.CLASS_NAME, "message-error")
