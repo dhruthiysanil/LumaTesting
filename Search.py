@@ -55,7 +55,7 @@ def search_and_add_shirt(driver, wait):
     )
     driver.execute_script("arguments[0].click();", add_to_cart_btn)
 
-    print("🛒 Product added to cart.")
+    print("Product added to cart.")
 
 
 def proceed_to_checkout(driver, wait):

@@ -11,9 +11,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import WomenConfig
+import os
 
-EMAIL = "code5500@gmail.com"
-PASSWORD = "DhruthiSanil@15"
+# Credentials from environment variables
+EMAIL = os.getenv("EMAIL")
+PASSWORD = os.getenv("PASSWORD")
 
 # Start and configure the Chrome driver
 def start_driver():
