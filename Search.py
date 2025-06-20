@@ -101,7 +101,7 @@ def fill_shipping_details(driver, wait):
     ).select_by_index(1)
     wait.until(
         EC.presence_of_element_located(SearchConfig.CHECKOUT_PHONE_SELECTOR)
-    ).send_keys("9844543210")
+    ).send_keys("9456787810")
 
     wait.until(
         EC.element_to_be_clickable(SearchConfig.SHIPPING_METHOD_RADIO_XPATH)
