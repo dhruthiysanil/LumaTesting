@@ -1,27 +1,28 @@
 """
 register_only.py
 
-This script automates the process of registering a user on a Magento demo site using Selenium.]
+This script automates the process of registering a user on a Magento demo site using Selenium.
 """
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from dotenv import load_dotenv
 import WomenConfig
 import os
 
-# Get credentials from environment variables
+# Load environment variables from .env file
+load_dotenv()
+
+# Read credentials from environment
 EMAIL = os.getenv("EMAIL")
 PASSWORD = os.getenv("PASSWORD")
 
 def open_site(driver):
-    """Navigates to the home URL defined in the config file."""
+    """Navigate to the homepage."""
     driver.get(WomenConfig.HOME_URL)
 
 def register_account(driver):
-    """
-    Automates account registration by filling out the form fields and clicking the register button.
-    Prints whether the account was created or already exists.
-    """
+    """Fill out the registration form and handle any registration result."""
     driver.find_element(By.XPATH, WomenConfig.CREATE_ACCOUNT_LINK).click()
     driver.find_element(By.ID, WomenConfig.FIRST_NAME_INPUT).send_keys("Dhruthi")
     driver.find_element(By.ID, WomenConfig.LAST_NAME_INPUT).send_keys("Sanil")
@@ -32,13 +33,20 @@ def register_account(driver):
 
     try:
         driver.find_element(By.CLASS_NAME, "message-error")
-        print(" Registration failed: Email already exists.")
+        print("Registration failed: Email already exists.")
     except:
-        print("✅ Account created successfully.")
+        print("Account created successfully.")
 
 def main():
-    """Main entry point to execute the registration process."""
-    driver = webdriver.Chrome()
+    """Run the registration test end-to-end."""
+    if not EMAIL or not PASSWORD:
+        print("EMAIL or PASSWORD not set in the .env file.")
+        return
+
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-certificate-errors')
+
+    driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
     driver.maximize_window()
 
@@ -46,7 +54,7 @@ def main():
         open_site(driver)
         register_account(driver)
     except Exception as e:
-        print(f" Error during registration: {e}")
+        print(f"Error during registration: {e}")
     finally:
         driver.quit()
 

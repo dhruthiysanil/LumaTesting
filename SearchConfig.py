@@ -38,6 +38,17 @@ CHECKOUT_ZIP_SELECTOR = (By.NAME, "postcode")
 CHECKOUT_COUNTRY_SELECTOR = (By.NAME, "country_id")
 CHECKOUT_PHONE_SELECTOR = (By.NAME, "telephone")
 
+
+# Checkout Shipping Info
+COMPANY_NAME = "NethraTech Pvt Ltd"
+STREET_ADDRESS = "123 AI Street"
+CITY = "Bangalore"
+STATE_INDEX = 1               # Index of the state in the dropdown
+ZIP_CODE = "560001"
+COUNTRY_INDEX = 1             # Index of the country in the dropdown
+PHONE_NUMBER = "9844543210"
+
+
 # Shipping & Payment
 SHIPPING_METHOD_RADIO_XPATH = (By.XPATH, "//input[@type='radio' and contains(@value,'flatrate')]")
 NEXT_BUTTON_XPATH = (By.XPATH, "//span[@data-bind=\"i18n: 'Next'\"]")

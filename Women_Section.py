@@ -14,6 +14,9 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import WomenConfig
+from dotenv import load_dotenv
+load_dotenv()
+
 
 
 def login(driver, wait):
@@ -63,24 +66,29 @@ def fill_shipping_details(driver, wait):
     wait.until(EC.url_contains("checkout/#shipping"))
 
     wait.until(EC.presence_of_element_located(WomenConfig.CHECKOUT_COMPANY_SELECTOR)).send_keys(
-        "NethraTech Pvt Ltd"
+        WomenConfig.COMPANY_NAME
     )
     wait.until(EC.presence_of_element_located(WomenConfig.CHECKOUT_STREET_SELECTOR)).send_keys(
-        "123 AI Street"
+        WomenConfig.STREET_ADDRESS
     )
     wait.until(EC.presence_of_element_located(WomenConfig.CHECKOUT_CITY_SELECTOR)).send_keys(
-        "Bangalore"
+        WomenConfig.CITY
     )
 
     Select(wait.until(
         EC.element_to_be_clickable(WomenConfig.CHECKOUT_STATE_DROPDOWN_SELECTOR))
-    ).select_by_index(1)
-    wait.until(EC.presence_of_element_located(WomenConfig.CHECKOUT_ZIP_SELECTOR)).send_keys("560001")
+    ).select_by_index(WomenConfig.STATE_INDEX)
+
+    wait.until(EC.presence_of_element_located(WomenConfig.CHECKOUT_ZIP_SELECTOR)).send_keys(
+        WomenConfig.ZIP_CODE
+    )
+
     Select(wait.until(
         EC.element_to_be_clickable(WomenConfig.CHECKOUT_COUNTRY_SELECTOR))
-    ).select_by_index(1)
+    ).select_by_index(WomenConfig.COUNTRY_INDEX)
+
     wait.until(EC.presence_of_element_located(WomenConfig.CHECKOUT_PHONE_SELECTOR)).send_keys(
-        "9844543210"
+        WomenConfig.PHONE_NUMBER
     )
 
     wait.until(EC.element_to_be_clickable(WomenConfig.SHIPPING_METHOD_RADIO_XPATH)).click()

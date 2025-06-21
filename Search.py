@@ -13,22 +13,25 @@ All credentials and selectors are stored in `SearchConfig.py`.
 """
 
 import traceback
+import os
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 import SearchConfig
 
+# Load .env
+load_dotenv()
+EMAIL = os.getenv("EMAIL")
+PASSWORD = os.getenv("PASSWORD")
+
 
 def login(driver, wait):
-    """Log into Magento site using credentials from config."""
+    """Log into Magento site using credentials from .env."""
     driver.get(SearchConfig.LOGIN_URL)
-    wait.until(
-        EC.presence_of_element_located((By.ID, SearchConfig.SIGN_IN_EMAIL_INPUT))
-    ).send_keys(SearchConfig.EMAIL)
-    driver.find_element(By.ID, SearchConfig.SIGN_IN_PASSWORD_INPUT).send_keys(
-        SearchConfig.PASSWORD
-    )
+    wait.until(EC.presence_of_element_located((By.ID, SearchConfig.SIGN_IN_EMAIL_INPUT))).send_keys(EMAIL)
+    driver.find_element(By.ID, SearchConfig.SIGN_IN_PASSWORD_INPUT).send_keys(PASSWORD)
     driver.find_element(By.ID, SearchConfig.SIGN_IN_BUTTON).click()
     wait.until(EC.presence_of_element_located((By.ID, SearchConfig.SEARCH_INPUT_ID)))
     print("Logged in successfully")
@@ -36,97 +39,69 @@ def login(driver, wait):
 
 def search_and_add_shirt(driver, wait):
     """Search for a shirt, select attributes, and add to cart."""
-    search_box = wait.until(
-        EC.presence_of_element_located((By.ID, SearchConfig.SEARCH_INPUT_ID))
-    )
+    search_box = wait.until(EC.presence_of_element_located((By.ID, SearchConfig.SEARCH_INPUT_ID)))
     search_box.clear()
     search_box.send_keys("shirt")
     search_box.submit()
 
-    wait.until(EC.element_to_be_clickable(
-        (By.XPATH, SearchConfig.RADIANT_TEE_XPATH))).click()
+    wait.until(EC.element_to_be_clickable((By.XPATH, SearchConfig.RADIANT_TEE_XPATH))).click()
     driver.execute_script("window.scrollBy(0, 500);")
-
     wait.until(EC.element_to_be_clickable((By.ID, SearchConfig.SIZE_M_ID))).click()
     wait.until(EC.element_to_be_clickable((By.ID, SearchConfig.COLOR_BLUE_ID))).click()
 
-    add_to_cart_btn = wait.until(
-        EC.element_to_be_clickable((By.XPATH, SearchConfig.ADD_TO_CART_XPATH))
-    )
+    add_to_cart_btn = wait.until(EC.element_to_be_clickable((By.XPATH, SearchConfig.ADD_TO_CART_XPATH)))
     driver.execute_script("arguments[0].click();", add_to_cart_btn)
-
-    print("Product added to cart.")
+    print("Product added to cart")
 
 
 def proceed_to_checkout(driver, wait):
     """Open minicart and click 'Proceed to Checkout'."""
-    cart_icon = wait.until(
-        EC.element_to_be_clickable((By.XPATH, SearchConfig.CART_ICON_XPATH))
-    )
+    cart_icon = wait.until(EC.element_to_be_clickable((By.XPATH, SearchConfig.CART_ICON_XPATH)))
     driver.execute_script("arguments[0].click();", cart_icon)
 
     try:
-        checkout_btn = wait.until(
-            EC.element_to_be_clickable((By.ID, SearchConfig.MINICART_CHECKOUT_BUTTON_ID))
-        )
+        # Wait for minicart dropdown
+        wait.until(EC.presence_of_element_located((By.CLASS_NAME, "minicart-items")))
+
+        # Wait for the checkout button to be visible and clickable
+        checkout_btn = wait.until(EC.element_to_be_clickable((By.ID, SearchConfig.MINICART_CHECKOUT_BUTTON_ID)))
         driver.execute_script("arguments[0].click();", checkout_btn)
         print("Proceeded to checkout")
-    except TimeoutError as err:
+    except Exception as err:
         driver.save_screenshot("checkout_btn_error.png")
         raise RuntimeError("Could not click 'Proceed to Checkout'") from err
+
+
 
 
 def fill_shipping_details(driver, wait):
     """Fill all required shipping details and continue."""
     wait.until(EC.url_contains("checkout/#shipping"))
 
-    wait.until(
-        EC.presence_of_element_located(SearchConfig.CHECKOUT_COMPANY_SELECTOR)
-    ).send_keys("NethraTech Pvt Ltd")
-    wait.until(
-        EC.presence_of_element_located(SearchConfig.CHECKOUT_STREET_SELECTOR)
-    ).send_keys("123 AI Street")
-    wait.until(
-        EC.presence_of_element_located(SearchConfig.CHECKOUT_CITY_SELECTOR)
-    ).send_keys("Bangalore")
+    wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_COMPANY_SELECTOR)).send_keys(SearchConfig.COMPANY_NAME)
+    wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_STREET_SELECTOR)).send_keys(SearchConfig.STREET_ADDRESS)
+    wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_CITY_SELECTOR)).send_keys(SearchConfig.CITY)
 
-    Select(wait.until(
-        EC.element_to_be_clickable(SearchConfig.CHECKOUT_STATE_DROPDOWN_SELECTOR))
-    ).select_by_index(1)
-    wait.until(
-        EC.presence_of_element_located(SearchConfig.CHECKOUT_ZIP_SELECTOR)
-    ).send_keys("560001")
-    Select(wait.until(
-        EC.element_to_be_clickable(SearchConfig.CHECKOUT_COUNTRY_SELECTOR))
-    ).select_by_index(1)
-    wait.until(
-        EC.presence_of_element_located(SearchConfig.CHECKOUT_PHONE_SELECTOR)
-    ).send_keys("9844543210")
+    Select(wait.until(EC.element_to_be_clickable(SearchConfig.CHECKOUT_STATE_DROPDOWN_SELECTOR))).select_by_index(SearchConfig.STATE_INDEX)
+    wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_ZIP_SELECTOR)).send_keys(SearchConfig.ZIP_CODE)
+    Select(wait.until(EC.element_to_be_clickable(SearchConfig.CHECKOUT_COUNTRY_SELECTOR))).select_by_index(SearchConfig.COUNTRY_INDEX)
+    wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_PHONE_SELECTOR)).send_keys(SearchConfig.PHONE_NUMBER)
 
-    wait.until(
-        EC.element_to_be_clickable(SearchConfig.SHIPPING_METHOD_RADIO_XPATH)
-    ).click()
-    wait.until(
-        EC.element_to_be_clickable(SearchConfig.NEXT_BUTTON_XPATH)
-    ).click()
-
+    wait.until(EC.element_to_be_clickable(SearchConfig.SHIPPING_METHOD_RADIO_XPATH)).click()
+    wait.until(EC.element_to_be_clickable(SearchConfig.NEXT_BUTTON_XPATH)).click()
     print("Shipping details filled")
 
 
 def place_order(driver, wait):
     """Click 'Place Order' and verify redirection to success page."""
     wait.until(EC.url_contains("checkout/#payment"))
-    wait.until(
-        EC.invisibility_of_element_located((By.CSS_SELECTOR, "img[alt='Loading...']"))
-    )
+    wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, "img[alt='Loading...']")))
 
-    place_order_btn = wait.until(
-        EC.element_to_be_clickable(SearchConfig.PLACE_ORDER_BUTTON_XPATH)
-    )
+    place_order_btn = wait.until(EC.element_to_be_clickable(SearchConfig.PLACE_ORDER_BUTTON_XPATH))
     driver.execute_script("arguments[0].click();", place_order_btn)
 
     wait.until(EC.url_to_be(SearchConfig.SUCCESS_PAGE_URL))
-    print("🎉 Order placed successfully!")
+    print("Order placed successfully!")
 
 
 def main():

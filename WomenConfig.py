@@ -1,6 +1,8 @@
 #Config file of WomenSection.py
 from selenium.webdriver.common.by import By
+from dotenv import load_dotenv
 import os
+load_dotenv() 
 # URLs
 HOME_URL = "https://magento.softwaretestingboard.com/"
 LOGIN_URL = "https://magento.softwaretestingboard.com/customer/account/login/"
@@ -31,6 +33,7 @@ SIZE_S_XPATH = "//div[@class='swatch-option text' and text()='S']"
 COLOR_YELLOW_XPATH = "//div[@class='swatch-option color' and @option-label='Yellow']"
 ADD_TO_CART_XPATH = "//span[text()='Add to Cart']"
 
+
 # Radiant Tee
 SEARCH_INPUT_ID = "search"
 RADIANT_TEE_XPATH = "//a[@class='product-item-link' and contains(text(), 'Radiant Tee')]"
@@ -41,6 +44,15 @@ COLOR_BLUE_ID = "option-label-color-93-item-50"
 MY_CART_XPATH = "//span[text()='My Cart']"
 VIEW_CART_XPATH = "//span[contains(text(),'View and Edit Cart')]"
 PROCEED_TO_CHECKOUT_CART_XPATH = "//span[text()='Proceed to Checkout']"
+
+# Shipping Info Data
+COMPANY_NAME = "NethraTech Pvt Ltd"
+STREET_ADDRESS = "123 AI Street"
+CITY = "Bangalore"
+STATE_INDEX = 1  # Adjust as per dropdown index
+ZIP_CODE = "560001"
+COUNTRY_INDEX = 1  # Adjust as per dropdown index
+PHONE_NUMBER = "9844543210"
 
 # Checkout Fields
 CHECKOUT_COMPANY_SELECTOR = (By.NAME, "company")
