@@ -82,10 +82,31 @@ def fill_shipping_details(driver, wait):
     wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_STREET_SELECTOR)).send_keys(SearchConfig.STREET_ADDRESS)
     wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_CITY_SELECTOR)).send_keys(SearchConfig.CITY)
 
+
     Select(wait.until(EC.element_to_be_clickable(SearchConfig.CHECKOUT_STATE_DROPDOWN_SELECTOR))).select_by_index(SearchConfig.STATE_INDEX)
     wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_ZIP_SELECTOR)).send_keys(SearchConfig.ZIP_CODE)
     Select(wait.until(EC.element_to_be_clickable(SearchConfig.CHECKOUT_COUNTRY_SELECTOR))).select_by_index(SearchConfig.COUNTRY_INDEX)
     wait.until(EC.presence_of_element_located(SearchConfig.CHECKOUT_PHONE_SELECTOR)).send_keys(SearchConfig.PHONE_NUMBER)
+
+    Select(wait.until(
+        EC.element_to_be_clickable(SearchConfig.CHECKOUT_STATE_DROPDOWN_SELECTOR))
+    ).select_by_index(1)
+    wait.until(
+        EC.presence_of_element_located(SearchConfig.CHECKOUT_ZIP_SELECTOR)
+    ).send_keys("560001")
+    Select(wait.until(
+        EC.element_to_be_clickable(SearchConfig.CHECKOUT_COUNTRY_SELECTOR))
+    ).select_by_index(1)
+    wait.until(
+        EC.presence_of_element_located(SearchConfig.CHECKOUT_PHONE_SELECTOR)
+    ).send_keys("9456787810")
+
+    wait.until(
+        EC.element_to_be_clickable(SearchConfig.SHIPPING_METHOD_RADIO_XPATH)
+    ).click()
+    wait.until(
+        EC.element_to_be_clickable(SearchConfig.NEXT_BUTTON_XPATH)
+    ).click()
 
     wait.until(EC.element_to_be_clickable(SearchConfig.SHIPPING_METHOD_RADIO_XPATH)).click()
     wait.until(EC.element_to_be_clickable(SearchConfig.NEXT_BUTTON_XPATH)).click()
@@ -107,7 +128,6 @@ def place_order(driver, wait):
 def main():
     """Run the complete purchase flow."""
     options = webdriver.ChromeOptions()
-    options.add_argument("--log-level=3")
     driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.implicitly_wait(10)
