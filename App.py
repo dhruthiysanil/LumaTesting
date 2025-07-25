@@ -3,7 +3,7 @@ register_only.py
 
 This script automates the process of registering a user on a Magento demo site using Selenium.
 """
-
+#merge conflict erro example
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from dotenv import load_dotenv
