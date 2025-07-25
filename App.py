@@ -1,3 +1,4 @@
+
 """
 register_only.py
 
@@ -10,7 +11,7 @@ from selenium.webdriver.common.by import By
 from dotenv import load_dotenv
 import WomenConfig
 import os
-
+#new line
 # Load environment variables from .env file
 load_dotenv()
 
