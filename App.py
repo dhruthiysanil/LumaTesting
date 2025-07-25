@@ -3,7 +3,8 @@ register_only.py
 
 This script automates the process of registering a user on a Magento demo site using Selenium.
 """
-
+#This code is part of a test suite for the WomenConfig module, which contains configuration details for the Magento demo site.
+#This are the steps
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from dotenv import load_dotenv
